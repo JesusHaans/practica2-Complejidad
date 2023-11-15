@@ -1,3 +1,4 @@
+import random
 class Nodo:
     def __init__(self, nombre):
         self.nombre = nombre
@@ -32,6 +33,28 @@ class Grafo:
                 resultado += f"  --> {vecino} (Peso: {peso})\n"
         return resultado
 
+
+# Variables globales
+
+FILE_NAME = "prueba1.txt"
+#FILE_NAME = "prueba2.txt"
+
+#Abrimos el archivo
+file = open(FILE_NAME)
+
+#La primera linea la guardamos para trabajarla despues
+strVertices = file.readline()
+strVertices = strVertices[:-1]
+
+#Llenamos las aristas con tuplas que representan las aristas
+aristas = []
+linea = file.readline()
+while (linea != ''):
+    aristas.append((linea[0],linea[2],linea[4]))
+    linea = file.readline()
+
+#Trabajamos str Vertices
+vertices = strVertices.split(',')
 
 # Ejemplo de uso
 if __name__ == "__main__":
