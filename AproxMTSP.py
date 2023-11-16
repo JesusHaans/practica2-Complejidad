@@ -1,4 +1,8 @@
 import random
+import numpy as np
+
+#Clases paraa hacer graficas
+
 class Nodo:
     def __init__(self, nombre):
         self.nombre = nombre
@@ -50,31 +54,34 @@ strVertices = strVertices[:-1]
 aristas = []
 linea = file.readline()
 while (linea != ''):
-    aristas.append((linea[0],linea[2],linea[4]))
+    aristas.append((linea[0],linea[2],int(linea[4:])))
     linea = file.readline()
 
 #Trabajamos str Vertices
 vertices = strVertices.split(',')
 
-# Ejemplo de uso
-if __name__ == "__main__":
-    # Crear nodos
-    nodo1 = Nodo("A")
-    nodo2 = Nodo("B")
-    nodo3 = Nodo("C")
+def imprimir_matriz(matriz):
+    for fila in matriz:
+        for elemento in fila:
+            print(elemento, end='\t')  # '\t' agrega un tabulador entre elementos
+        print()  # Nueva línea después de cada fila
 
-    # Crear grafo
-    grafo = Grafo()
 
-    # Agregar nodos al grafo
-    grafo.agregar_nodo(nodo1)
-    grafo.agregar_nodo(nodo2)
-    grafo.agregar_nodo(nodo3)
 
-    # Agregar aristas con pesos
-    grafo.agregar_arista(nodo1, nodo2, 3)
-    grafo.agregar_arista(nodo2, nodo3, 5)
-    grafo.agregar_arista(nodo1, nodo3, 2)
+#creamos matriz de pesos
+matrizPesos = np.zeros((len(vertices),len(vertices)))
+for i in range(len(vertices)):
+    for j in range(len(vertices)):
+        if(i==j):
+            matrizPesos[i][j] = 0
+        else:
+            for arista in aristas:
+                if(arista[0] == vertices[i] and arista[1] == vertices[j]):
+                    matrizPesos[i][j] = arista[2]
+                    break
+                elif(arista[1] == vertices[i] and arista[0] == vertices[j]):
+                    matrizPesos[i][j] = arista[2]
+                    break
 
-    # Imprimir el grafo
-    print(grafo)
+# funciona imprimir la matriz
+#imprimir_matriz(matrizPesos)
